@@ -1,17 +1,19 @@
 services:
   - type: web
-    name: restaurant-pos
+    name: restaurant-pos-api
     runtime: node
     plan: free
     region: oregon
-    buildCommand: npm install -g pnpm && pnpm install --prod=false && pnpm --filter @nodedr-restaurant/types build && cd apps/backend && npx prisma generate && npx nest build && cd ../web && pnpm build && cd ../..
-    startCommand: cd apps/backend && npx prisma migrate deploy && npx ts-node prisma/seed.ts && cd ../.. && node server.js
+    buildCommand: npm install -g pnpm && pnpm install --prod=false && pnpm --filter @nodedr-restaurant/types build && cd apps/backend && npx prisma generate && npx nest build && cd ../..
+    startCommand: cd apps/backend && npx prisma migrate deploy && npx ts-node prisma/seed.ts && node dist/src/main.js
     envVars:
       - key: NODE_VERSION
         value: 22.14.0
       - key: NODE_ENV
         value: production
       - key: COOKIE_SECURE
+        value: "true"
+      - key: CORS_ORIGIN
         value: "true"
       - key: JWT_SECRET
         generateValue: true

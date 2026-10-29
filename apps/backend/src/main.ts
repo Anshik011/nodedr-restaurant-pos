@@ -110,8 +110,12 @@ async function bootstrap() {
     }),
   );
   app.use(cookieParser());
+  const corsOrigin =
+    process.env.CORS_ORIGIN === 'true'
+      ? true
+      : (process.env.CORS_ORIGIN ?? 'http://localhost:1995');
   app.enableCors({
-    origin: process.env.CORS_ORIGIN ?? 'http://localhost:1995',
+    origin: corsOrigin,
     credentials: true,
   });
   app.setGlobalPrefix('api');
