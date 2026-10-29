@@ -1,56 +1,26 @@
 "use client";
 
-import { MotionConfig } from "motion/react";
-import { AuthRedirectGate } from "@/components/marketing/auth-redirect-gate";
-import { ClaimedLanding } from "@/components/marketing/claimed-landing";
-import { Features } from "@/components/marketing/features";
-import { Hero } from "@/components/marketing/hero";
-import { InstallSection } from "@/components/marketing/install-section";
-import { MarketingFooter } from "@/components/marketing/marketing-footer";
-import { MarketingNav } from "@/components/marketing/marketing-nav";
-import { ProductShowcase } from "@/components/marketing/product-showcase";
-import { SecuritySection } from "@/components/marketing/security-section";
-import { useSetupStatus } from "@/hooks/use-setup-status";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useCurrentUser } from "@/hooks/use-auth";
 
-export default function MarketingHomePage() {
-  const { data, isLoading } = useSetupStatus();
+export default function RootPage() {
+  const router = useRouter();
+  const { data, isLoading, isSuccess } = useCurrentUser();
 
-  // Until we know: render nothing rather than flash the full sales pitch
-  // (or the minimal claimed view) and then swap it a moment later.
-  if (isLoading) {
-    return null;
-  }
-
-  // This instance already has a restaurant registered — the public root is
-  // now a live business's front door, not an unclaimed install's sales
-  // page. Show only what a returning visitor actually needs.
-  if (data?.isSetup) {
-    return (
-      <div className="flex min-h-full flex-col">
-        <AuthRedirectGate />
-        <ClaimedLanding />
-      </div>
-    );
-  }
+  useEffect(() => {
+    if (!isLoading) {
+      if (isSuccess && data?.user) {
+        router.replace("/dashboard");
+      } else {
+        router.replace("/login");
+      }
+    }
+  }, [isLoading, isSuccess, data, router]);
 
   return (
-    // reducedMotion="user" makes every Motion animation on this page defer
-    // to the OS prefers-reduced-motion setting automatically (transforms
-    // swap for instant/opacity-only changes) instead of threading
-    // useReducedMotion() through every component individually.
-    <MotionConfig reducedMotion="user">
-      <div className="flex min-h-full flex-col">
-        <AuthRedirectGate />
-        <MarketingNav />
-        <main id="main-content">
-          <Hero />
-          <ProductShowcase />
-          <Features />
-          <SecuritySection />
-          <InstallSection />
-        </main>
-        <MarketingFooter />
-      </div>
-    </MotionConfig>
+    <div className="flex min-h-screen items-center justify-center bg-background">
+      <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+    </div>
   );
 }
