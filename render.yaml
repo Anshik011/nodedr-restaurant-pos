@@ -4,9 +4,11 @@ services:
     runtime: node
     plan: free
     region: oregon
-    buildCommand: corepack enable && pnpm install --frozen-lockfile && pnpm --filter @nodedr-restaurant/types build && pnpm --filter @nodedr-restaurant/backend exec prisma generate && pnpm --filter @nodedr-restaurant/backend build && pnpm --filter web build
+    buildCommand: npm install -g pnpm && pnpm install --prod=false && pnpm --filter @nodedr-restaurant/types build && cd apps/backend && npx prisma generate && npx nest build && cd ../web && pnpm build && cd ../..
     startCommand: cd apps/backend && npx prisma migrate deploy && npx ts-node prisma/seed.ts && cd ../.. && node server.js
     envVars:
+      - key: NODE_VERSION
+        value: 22.14.0
       - key: NODE_ENV
         value: production
       - key: COOKIE_SECURE
