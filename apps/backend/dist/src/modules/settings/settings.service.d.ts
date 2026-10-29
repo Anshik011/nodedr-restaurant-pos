@@ -1,0 +1,95 @@
+import { type BranchSettingsDto, type RestaurantSettingsDto } from '@nodedr-restaurant/types';
+import { AuditService } from '../../audit/audit.service';
+import { PrismaService } from '../../prisma/prisma.service';
+export declare class SettingsService {
+    private readonly prisma;
+    private readonly audit;
+    constructor(prisma: PrismaService, audit: AuditService);
+    get(restaurantId: string, branchId: string): Promise<{
+        restaurant: {
+            id: string;
+            name: string;
+            legalName: string | null;
+            logoUrl: string | null;
+            currency: string;
+            timezone: string;
+            upiVpa: string | null;
+            upiPayeeName: string | null;
+            loyaltyPointValue: import("@prisma/client/runtime/library").Decimal;
+            loyaltyEarnPerCurrency: number;
+            createdAt: Date;
+            updatedAt: Date;
+        };
+        branch: {
+            id: string;
+            name: string;
+            createdAt: Date;
+            updatedAt: Date;
+            kioskToken: string | null;
+            restaurantId: string;
+            address: string | null;
+            phone: string | null;
+            gstNumber: string | null;
+            country: string;
+            taxRegime: import("@prisma/client").$Enums.TaxRegime;
+            taxMode: import("@prisma/client").$Enums.TaxMode;
+            taxLabel: string | null;
+            taxId: string | null;
+            autoConfirmOrders: boolean;
+            autoConfirmReservations: boolean;
+            kioskDineInEnabled: boolean;
+            kioskTakeawayEnabled: boolean;
+            printerPaperWidthMm: number;
+            printerCodepage: string;
+            printerColumns: number | null;
+            printerConnection: string;
+            printerHost: string | null;
+            printerPort: number;
+            isActive: boolean;
+        };
+    }>;
+    updateRestaurant(restaurantId: string, userId: string, dto: RestaurantSettingsDto): Promise<{
+        id: string;
+        name: string;
+        legalName: string | null;
+        logoUrl: string | null;
+        currency: string;
+        timezone: string;
+        upiVpa: string | null;
+        upiPayeeName: string | null;
+        loyaltyPointValue: import("@prisma/client/runtime/library").Decimal;
+        loyaltyEarnPerCurrency: number;
+        createdAt: Date;
+        updatedAt: Date;
+    }>;
+    updateBranch(branchId: string, userId: string, dto: BranchSettingsDto): Promise<{
+        id: string;
+        name: string;
+        createdAt: Date;
+        updatedAt: Date;
+        kioskToken: string | null;
+        restaurantId: string;
+        address: string | null;
+        phone: string | null;
+        gstNumber: string | null;
+        country: string;
+        taxRegime: import("@prisma/client").$Enums.TaxRegime;
+        taxMode: import("@prisma/client").$Enums.TaxMode;
+        taxLabel: string | null;
+        taxId: string | null;
+        autoConfirmOrders: boolean;
+        autoConfirmReservations: boolean;
+        kioskDineInEnabled: boolean;
+        kioskTakeawayEnabled: boolean;
+        printerPaperWidthMm: number;
+        printerCodepage: string;
+        printerColumns: number | null;
+        printerConnection: string;
+        printerHost: string | null;
+        printerPort: number;
+        isActive: boolean;
+    }>;
+    setKioskToken(branchId: string, userId: string, action: 'enable' | 'rotate' | 'disable'): Promise<{
+        kioskToken: string | null;
+    }>;
+}

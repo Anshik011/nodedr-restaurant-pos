@@ -1,0 +1,36 @@
+import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import { type SessionUser } from '@nodedr-restaurant/types';
+import { PrismaService } from '../prisma/prisma.service';
+import { BranchAccessService } from '../common/services/branch-access.service';
+import { OrdersService } from '../modules/orders/orders.service';
+import { ReservationsService } from '../modules/reservations/reservations.service';
+import { DashboardService } from '../modules/dashboard/dashboard.service';
+import { MenuService } from '../modules/menu/menu.service';
+import { DeliveryService } from '../modules/delivery/delivery.service';
+import { AccountingService } from '../modules/accounting/accounting.service';
+import { MarketingService } from '../modules/marketing/marketing.service';
+import { OperationsService } from '../modules/operations/operations.service';
+import { ReportsService } from '../modules/reports/reports.service';
+import { HrService } from '../modules/hr/hr.service';
+import { AttendanceService } from '../modules/attendance/attendance.service';
+import { TablesService } from '../modules/tables/tables.service';
+export declare class McpToolsBuilder {
+    private readonly prisma;
+    private readonly branchAccess;
+    private readonly orders;
+    private readonly reservations;
+    private readonly dashboard;
+    private readonly menu;
+    private readonly tables;
+    private readonly attendance;
+    private readonly delivery;
+    private readonly hr;
+    private readonly accounting;
+    private readonly reports;
+    private readonly marketing;
+    private readonly operations;
+    constructor(prisma: PrismaService, branchAccess: BranchAccessService, orders: OrdersService, reservations: ReservationsService, dashboard: DashboardService, menu: MenuService, tables: TablesService, attendance: AttendanceService, delivery: DeliveryService, hr: HrService, accounting: AccountingService, reports: ReportsService, marketing: MarketingService, operations: OperationsService);
+    build(actor: SessionUser): McpServer;
+    private assertBranch;
+    private toolDefs;
+}

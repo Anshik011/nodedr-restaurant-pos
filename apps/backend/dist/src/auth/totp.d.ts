@@ -1,0 +1,11 @@
+export declare const STEP_SECONDS = 30;
+export declare function base32Encode(buf: Buffer): string;
+export declare function base32Decode(text: string): Buffer;
+export declare function generateSecret(): string;
+export declare function hotp(secret: Buffer, counter: number, digits?: number): string;
+export declare const stepAt: (ms: number) => number;
+export declare function verifyTotp(secretBase32: string, code: string, nowMs?: number, window?: number): number | null;
+export declare function otpauthUrl(secret: string, account: string, issuer: string): string;
+export declare function sealSecret(secret: string, keyMaterial: string): string;
+export declare function openSecret(sealed: string, keyMaterial: string): string;
+export declare function generateRecoveryCode(): string;

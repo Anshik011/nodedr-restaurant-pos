@@ -4,7 +4,7 @@ services:
     runtime: node
     plan: free
     region: oregon
-    buildCommand: npm install -g pnpm && pnpm install --prod=false && pnpm --filter @nodedr-restaurant/types build && cd apps/backend && npx prisma generate && npx nest build && cd ../..
+    buildCommand: npm install -g pnpm && pnpm install --prod && cd apps/backend && npx prisma generate && cd ../..
     startCommand: cd apps/backend && npx prisma migrate deploy && node dist/prisma/seed.js && node dist/src/main.js
     envVars:
       - key: NODE_VERSION
