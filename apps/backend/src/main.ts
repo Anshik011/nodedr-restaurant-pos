@@ -1,3 +1,9 @@
+import * as nodeCrypto from 'node:crypto';
+if (typeof globalThis.crypto === 'undefined') {
+  // Polyfill for Node < 19
+  (globalThis as unknown as { crypto: typeof nodeCrypto }).crypto = nodeCrypto;
+}
+
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
@@ -7,9 +13,7 @@ import { randomBytes } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname } from 'node:path';
 import { AppModule } from './app.module';
-import { uploadsDir } from './common/upload/image-upload.config';
-
-// Known example/placeholder secrets that appear verbatim in this repo's own
+import { uploadsDir } from './common/upload/image-upload.config';// Known example/placeholder secrets that appear verbatim in this repo's own
 // .env.example, docker-compose.yml, and the CasaOS/ZimaOS app-store
 // manifest (casaos/docker-compose.yml) — that manifest hardcodes a literal
 // default value (CasaOS app-store installers pre-fill it and many
@@ -123,10 +127,10 @@ async function bootstrap() {
     process.env.ENABLE_SWAGGER === 'true'
   ) {
     const config = new DocumentBuilder()
-      .setTitle('Nodedr OrderRestro API')
-      .setDescription('REST API for the Nodedr OrderRestro management system')
+      .setTitle('Uptoware Restaurant ERP API')
+      .setDescription('REST API for the Uptoware Restaurant ERP management system')
       .setVersion('1.0')
-      .addCookieAuth('nodedr_session')
+      .addCookieAuth('uptoware_session')
       .build();
     const document = SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('api/docs', app, document);
@@ -135,7 +139,8 @@ async function bootstrap() {
   const port = process.env.PORT ?? 4000;
   await app.listen(port);
   console.log(
-    `Nodedr OrderRestro API listening on :${port} (docs at /api/docs)`,
+    `Uptoware Restaurant ERP API listening on :${port} (docs at /api/docs)`,
   );
 }
 void bootstrap();
+

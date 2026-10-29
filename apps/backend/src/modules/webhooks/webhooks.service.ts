@@ -224,7 +224,7 @@ export class WebhooksService {
         payload: {
           event: 'test',
           createdAt: new Date().toISOString(),
-          data: { message: 'Hello from OrderRestro' },
+          data: { message: 'Hello from Uptoware' },
         },
       },
     });
@@ -298,13 +298,12 @@ export class WebhooksService {
         netOptionsFromEnv(),
       );
       statusCode = await this.post(target, body, {
+        'X-Uptoware-Event': d.event,
         'X-OrderRestro-Event': d.event,
+        'X-Uptoware-Delivery': d.id,
         'X-OrderRestro-Delivery': d.id,
-        'X-OrderRestro-Signature': signPayload(
-          secret,
-          body,
-          Math.floor(Date.now() / 1000),
-        ),
+        'X-Uptoware-Signature': signPayload(secret, body, Math.floor(Date.now() / 1000)),
+        'X-OrderRestro-Signature': signPayload(secret, body, Math.floor(Date.now() / 1000)),
       });
       if (statusCode < 200 || statusCode >= 300)
         error = `Receiver answered HTTP ${statusCode}`;
@@ -357,7 +356,7 @@ export class WebhooksService {
           headers: {
             'Content-Type': 'application/json',
             'Content-Length': Buffer.byteLength(body),
-            'User-Agent': 'OrderRestro-Webhooks/1',
+            'User-Agent': 'Uptoware-Webhooks/1',
             ...headers,
           },
           // Connect to the address we already vetted; TLS still validates

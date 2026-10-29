@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Nodedr OrderRestro",
-  description: "Offline-first restaurant management system",
+  title: "Uptoware Restaurant ERP",
+  description: "Offline-first restaurant management & Point of Sale system — Uptoware",
   manifest: "/manifest.json",
   icons: {
     icon: [{ url: "/icons/favicon-32.png", sizes: "32x32", type: "image/png" }],

@@ -1,18 +1,18 @@
 {
-  "name": "nodedr-orderrestro",
+  "name": "uptoware-restaurant-pos",
   "private": true,
   "version": "0.1.0",
-  "description": "Nodedr OrderRestro — offline-first Restaurant Management System",
-  "author": "Raktim Ranjit <mail@raktimranjit.com> (https://github.com/Raktim94)",
+  "description": "Uptoware Restaurant ERP — Modern Restaurant Management & Point of Sale System",
+  "author": "Uptoware <support@uptoware.com> (https://uptoware.com)",
   "license": "AGPL-3.0-only",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Raktim94/nodedr-restaurant-pos.git"
+    "url": "https://github.com/Anshik011/nodedr-restaurant-pos.git"
   },
   "bugs": {
-    "url": "https://github.com/Raktim94/nodedr-restaurant-pos/issues"
+    "url": "https://github.com/Anshik011/nodedr-restaurant-pos/issues"
   },
-  "homepage": "https://orderrestro.nodedr.com/",
+  "homepage": "https://restauranterp.uptoware.com/",
   "keywords": [
     "restaurant-management",
     "restaurant-pos",
@@ -32,6 +32,7 @@
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
+    "start": "node server.js",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
     "test": "turbo run test",
@@ -41,8 +42,9 @@
     "turbo": "^2.10.9",
     "typescript": "^5.9.3"
   },
-  "packageManager": "pnpm@11.10.0",
+  "packageManager": "pnpm@11.24.0",
   "engines": {
     "node": ">=22"
-  }
+  },
+  "main": "server.js"
 }

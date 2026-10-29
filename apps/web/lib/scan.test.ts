@@ -36,7 +36,7 @@ test("rejects empty, oversized and unknown payloads instead of guessing", () => 
     kind: "invalid",
     reason: "unrecognized",
   });
-  assert.deepEqual(normalizeScan("orderrestro:order:<script>"), {
+  assert.deepEqual(normalizeScan("uptoware:order:<script>"), {
     kind: "invalid",
     reason: "unrecognized",
   });

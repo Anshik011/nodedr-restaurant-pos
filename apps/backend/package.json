@@ -1,12 +1,12 @@
 {
   "name": "@nodedr-restaurant/backend",
   "version": "0.0.1",
-  "description": "Nodedr OrderRestro API",
-  "author": "Raktim Ranjit <mail@raktimranjit.com> (https://github.com/Raktim94)",
+  "description": "Uptoware Restaurant ERP API",
+  "author": "Uptoware <support@uptoware.com> (https://uptoware.com)",
   "private": true,
   "license": "AGPL-3.0-only",
   "scripts": {
-    "build": "nest build",
+    "build": "prisma generate && nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "dev": "nest start --watch",
